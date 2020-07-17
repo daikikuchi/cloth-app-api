@@ -1,0 +1,40 @@
+from django.test import TestCase
+# get_user_model returns a user model that is currently active in project
+from django.contrib.auth import get_user_model
+
+
+class ModelTests(TestCase):
+    def test_create_user_with_email_successful(self):
+        """Test Creating a new user with an email is successful"""
+        email = 'kikuchi.dai@gmail.com'
+        password = 'password'
+        user = get_user_model().objects.create_user(
+            email=email,
+            password=password
+        )
+
+        self.assertEqual(user.email, email)
+        self.assertTrue(user.check_password(password))
+
+    def test_new_user_email_normilized(self):
+        """Test the email for a new user is normilized"""
+        email = 'test@GMAIL.COM'
+
+        user = get_user_model().objects.create_user(email, 'test123')
+
+        self.assertEqual(user.email, email.lower())
+
+    def test_new_user_invalid_email(self):
+        """Test Creating user with no email raises error"""
+        with self.assertRaises(ValueError):
+            get_user_model().objects.create_user(None, 'test123')
+
+    def test_create_new_superuser(self):
+        """Test creating a new superuser"""
+        user = get_user_model().objects.create_superuser(
+            'test@gmail.com',
+            'password'
+        )
+
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
