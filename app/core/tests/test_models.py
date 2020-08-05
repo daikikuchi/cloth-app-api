@@ -54,3 +54,12 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(tag), tag.name)
+
+    def test_material_str(self):
+        """Test the ingredient string representation"""
+        material = models.Material.objects.create(
+            user=sample_user(),
+            name='cotton'
+        )
+
+        self.assertEqual(str(material), material.name)

@@ -6,6 +6,7 @@ from clothes import views
 
 router = DefaultRouter()
 router.register('tags', views.TagViewSet)
+router.register('materials', views.MaterialViewSet)
 
 app_name = 'clothes'
 
