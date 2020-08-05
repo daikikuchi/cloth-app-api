@@ -23,11 +23,12 @@ class TagViewSet(viewsets.GenericViewSet,
 
     def perform_create(self, serializer):
         """Create a new Tag"""
-        print(serializer.validated_data)
         serializer.save(user=self.request.user)
 
 
-class MaterialViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+class MaterialViewSet(viewsets.GenericViewSet,
+                      mixins.ListModelMixin,
+                      mixins.CreateModelMixin):
     """Manage ingredients in the database"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -37,3 +38,7 @@ class MaterialViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     def get_queryset(self):
         """Return objects for the current authenticated user"""
         return self.queryset.filter(user=self.request.user).order_by('-name')
+
+    def perform_create(self, serializer):
+        """"Create a new material"""
+        serializer.save(user=self.request.user)
