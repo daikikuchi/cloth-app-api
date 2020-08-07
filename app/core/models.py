@@ -61,3 +61,16 @@ class Material(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Shop(models.Model):
+    """Shop for a user to buy a piece of clothing from"""
+    name = models.CharField(max_length=255)
+    link = models.CharField(max_length=255, blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name

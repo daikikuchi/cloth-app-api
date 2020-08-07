@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from core.models import Tag, Material
+from core.models import Tag, Material, Shop
 
 
 class TagSerializer(serializers.ModelSerializer):
-    """Serializer for the tag objects"""
+    """Serializer for tag objects"""
 
     class Meta:
         model = Tag
@@ -13,9 +13,18 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class MaterialSerializer(serializers.ModelSerializer):
-    """Serializer for material object"""
+    """Serializer for material objects"""
 
     class Meta:
         model = Material
         fields = ('id', 'name')
+        read_only_fields = ('id',)
+
+
+class ShopSerializer(serializers.ModelSerializer):
+    """Serializer for shop objects"""
+
+    class Meta:
+        model = Shop
+        fields = ('id', 'name', 'link')
         read_only_fields = ('id',)

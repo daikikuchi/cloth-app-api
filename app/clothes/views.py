@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import Tag, Material
+from core.models import Tag, Material, Shop
 
 from clothes import serializers
 
@@ -33,3 +33,9 @@ class MaterialViewSet(BaseClothesAttrViewSet):
     """Manage ingredients in the database"""
     queryset = Material.objects.all()
     serializer_class = serializers.MaterialSerializer
+
+
+class ShopViewSet(BaseClothesAttrViewSet):
+    """Manage shops in the database"""
+    queryset = Shop.objects.all()
+    serializer_class = serializers.ShopSerializer
